@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>57c7f523-a261-4d1c-966d-2d1ba9e3269d</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.9" />
+    <PackageReference Include="Rebus" Version="6.4.1" />
+    <PackageReference Include="Rebus.Microsoft.Extensions.Configuration" Version="0.0.3" />
+    <PackageReference Include="Rebus.Microsoft.Extensions.Logging" Version="2.0.0" />
+    <PackageReference Include="Rebus.Msmq" Version="6.0.0" />
+    <PackageReference Include="Rebus.ServiceProvider" Version="6.3.1" />
+    <PackageReference Include="Rebus.SqlServer" Version="7.1.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\WebSocketEvents\WebSocketEvents.csproj" />
+    <ProjectReference Include="..\WebSocketManager\WebSocketManager.csproj" />
+  </ItemGroup>
+
+</Project>
