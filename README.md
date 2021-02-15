@@ -1,4 +1,4 @@
-Applications made with sockets that allows user to enter a chat room and chat. Additionaly, it allows to send command messages using rebus as service bus provider with sql server. 
+Application made with sockets that allows user to enter a chat room and chat. Additionaly, it allows to send command messages using rebus as service bus provider with sql server. 
 The only thing you must ensure it's to have visual studio with localdb enabled at the following connection string:
 Data Source = (LocalDb)\MSSQLLocalDB; Initial Catalog = RebusSource; Integrated Security = SSPI;". The tables will be created with the execution.
 
