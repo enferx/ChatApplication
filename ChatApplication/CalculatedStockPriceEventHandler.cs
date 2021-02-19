@@ -22,7 +22,14 @@ namespace ChatApplication
             var socket = _chatHandler.GetById(message.WebSocketId);
             if (socket != null)
             {
-                await _chatHandler.SendMessageAsync(socket, $"{message.Stock} quote is {message.Quote} per share");
+                if (message.IsValid)
+                {
+                    await _chatHandler.SendMessageAsync(socket, $"{message.Stock} quote is {message.Quote} per share");
+                }
+                else
+                {
+                    await _chatHandler.SendMessageAsync(socket, "The specified stock doesn't exists or it couldn't be found.");
+                }
             }
         }
     }

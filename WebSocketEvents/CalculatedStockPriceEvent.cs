@@ -10,11 +10,14 @@ namespace WebSocketEvents
 
         public decimal Quote { get; }
 
-        public CalculatedStockPriceEvent(string stock, string webSocketId, decimal quote)
+        public bool IsValid { get; set; }
+
+        public CalculatedStockPriceEvent(string stock, string webSocketId, decimal quote, bool isValid)
         {
             Stock = stock;
             WebSocketId = webSocketId;
             Quote = quote;
+            IsValid = isValid;
         }
     }
 }
