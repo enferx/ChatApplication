@@ -30,9 +30,8 @@ namespace ChatApplication
                     provider.GetRequiredService<ILoggerFactory>()))
                 .Transport(t => t.UseSqlServer(transportOptions, "botparser"))
                 .Routing(r => r.TypeBased().MapAssemblyOf<CalculatedStockPriceEvent>("botParser"))
-                
                 .Subscriptions(
-                t => t.StoreInSqlServer(
+                    t => t.StoreInSqlServer(
                     @"Data Source = (LocalDb)\MSSQLLocalDB; Initial Catalog = RebusSource; Integrated Security = SSPI;", "Subscriptions", false, true
                     ))
                 

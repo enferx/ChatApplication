@@ -22,10 +22,11 @@ namespace BotParser
         {
             var transportOptions = new SqlServerTransportOptions(
                 @"Data Source = (LocalDb)\MSSQLLocalDB; Initial Catalog = RebusSource; Integrated Security = SSPI;");
+            transportOptions.SetEnsureTablesAreCreated(true);
 
             _activator = new BuiltinHandlerActivator();
-           _activator.Register((x) => new Handler(_activator.Bus));
-
+            _activator.Register((x) => new Handler(_activator.Bus));
+           
             Configure.With(_activator)
                 .Logging(l => l.ColoredConsole(minLevel: LogLevel.Warn))
                 .Transport(t => t.UseSqlServer(transportOptions, "botParserExecutions"))
