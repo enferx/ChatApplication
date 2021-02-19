@@ -3,6 +3,4 @@ The only thing you must ensure it's to have visual studio with localdb enabled a
 Data Source = (LocalDb)\MSSQLLocalDB; Initial Catalog = RebusSource; Integrated Security = SSPI;". The tables will be created with the execution.
 
 Steps
-1. Set chat application as startup project. Login with two users and interchange messages. Let one or message to be the following sequence: /stock=aapl.us. This would fire service
-bus events.
-2. Stop the chat application and start the botparser. It will receive the messages and process the result.
+1. Set chat application and BotParser as startup project. Login with two users and interchange messages. Let one or message to be the following sequence: /stock=aapl.us. This would fire service bus events.
