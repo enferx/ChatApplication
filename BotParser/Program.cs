@@ -51,23 +51,25 @@ namespace BotParser
 
         async Task IHandleMessages<CalculateStockPriceEvent>.Handle(CalculateStockPriceEvent message)
         {
-            var client = new HttpClient();
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(
-                new MediaTypeWithQualityHeaderValue("text/csv"));
-            var url = $"https://stooq.com/q/l/?s={message.Stock}&f=sd2t2ohlcv&h&e=csv";
-            var response = await client.GetAsync(url).Result.Content.ReadAsStreamAsync(); //ReadAsStringAsync();
             decimal quote = 0;
-            using (var parser = new TextFieldParser(response))
+            using (var client = new HttpClient())
             {
-                parser.TextFieldType = FieldType.Delimited;
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(
+                    new MediaTypeWithQualityHeaderValue("text/csv"));
+                var url = $"https://stooq.com/q/l/?s={message.Stock}&f=sd2t2ohlcv&h&e=csv";
+                var response = await client.GetAsync(url).Result.Content.ReadAsStreamAsync(); //ReadAsStringAsync();
+                using var parser = new TextFieldParser(response)
+                {
+                    TextFieldType = FieldType.Delimited
+                };
                 parser.SetDelimiters(",");
                 string[] fields = parser.ReadFields();
                 var index = Array.IndexOf(fields, "Close");
                 while (!parser.EndOfData)
                 {
                     fields = parser.ReadFields();
-                    quote = Convert.ToDecimal(fields[index]);         
+                    quote = Convert.ToDecimal(fields[index]);
                 }
             }
             await _bus.Publish(new CalculatedStockPriceEvent(quote: quote, stock: message.Stock, webSocketId: message.WebSocketId));
