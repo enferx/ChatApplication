@@ -8,9 +8,9 @@ namespace WebSocketEvents
 
         public string WebSocketId { get; }
 
-        public string Quote { get; }
+        public decimal Quote { get; }
 
-        public CalculatedStockPriceEvent(string stock, string webSocketId, string quote)
+        public CalculatedStockPriceEvent(string stock, string webSocketId, decimal quote)
         {
             Stock = stock;
             WebSocketId = webSocketId;

@@ -2,8 +2,10 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Rebus.Config;
+using Rebus.Routing.TypeBased;
 using Rebus.ServiceProvider;
 using System;
+using WebSocketEvents;
 using WebSocketManager;
 
 namespace ChatApplication
@@ -21,17 +23,21 @@ namespace ChatApplication
             var transportOptions = new SqlServerTransportOptions(
                 @"Data Source = (LocalDb)\MSSQLLocalDB; Initial Catalog = RebusSource; Integrated Security = SSPI;");
             // possibly the default is true, so this line might not be needed
-            //transportOptions.SetEnsureTablesAreCreated(true);
+            transportOptions.SetEnsureTablesAreCreated(true);
 
             services.AddRebus((configure, provider) => configure
                 .Logging(l => l.MicrosoftExtensionsLogging(
                     provider.GetRequiredService<ILoggerFactory>()))
                 .Transport(t => t.UseSqlServer(transportOptions, "botparser"))
+                .Routing(r => r.TypeBased().MapAssemblyOf<CalculatedStockPriceEvent>("botParser"))
+                
                 .Subscriptions(
                 t => t.StoreInSqlServer(
                     @"Data Source = (LocalDb)\MSSQLLocalDB; Initial Catalog = RebusSource; Integrated Security = SSPI;", "Subscriptions", false, true
-                    )));
-
+                    ))
+                
+                );
+            services.AddRebusHandler<CalculatedStockPriceEventHandler>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,7 +55,8 @@ namespace ChatApplication
                 pattern: "{controller=Home}/{action=Index}/{id?}");
             });
 
-            app.ApplicationServices.UseRebus();
+            app.ApplicationServices.UseRebus
+                (async bus => await bus.Subscribe<CalculatedStockPriceEvent>());
 
         }
     }

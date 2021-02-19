@@ -12,6 +12,7 @@ namespace ChatApplication
     public class ChatHandler: WebSocketManager.WebSocketHandler
     {
         private readonly IBus _bus;
+
         public ChatHandler(WebSocketManager.WebSocketConnectionManager connectionManager, IBus bus) : base(connectionManager)
         {
             _bus = bus;

@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebSocketManager", "WebSock
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebSocketEvents", "WebSocketEvents\WebSocketEvents.csproj", "{2B5BD65E-DF36-450F-A93A-27B58A4112F2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotParser", "BotParser\BotParser.csproj", "{35EAE660-D26A-48D1-8C57-4674CD2782DB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BotParser", "BotParser\BotParser.csproj", "{35EAE660-D26A-48D1-8C57-4674CD2782DB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

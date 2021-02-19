@@ -11,7 +11,7 @@ namespace WebSocketManager
     public class WebSocketHandler
     {
         private WebSocketConnectionManager _connectionManager;
-
+        
         public WebSocketHandler(WebSocketConnectionManager connectionManager)
         {
             _connectionManager = connectionManager;
@@ -25,6 +25,11 @@ namespace WebSocketManager
         public string GetIdBySocket(WebSocket socket)
         {
             return _connectionManager.GetIdBySocket(socket);
+        }
+
+        public WebSocket GetById(string id)
+        {
+            return _connectionManager.GetById(id);
         }
 
         public async Task ConnectAsync(string id, WebSocket socket, CancellationToken ct = default(CancellationToken))
